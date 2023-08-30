@@ -29,5 +29,9 @@
 		"typescript": "^5.0.0",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@auth/core": "^0.12.0",
+		"@auth/sveltekit": "^0.3.6"
+	}
 }

@@ -5,4 +5,4 @@ In bash run
 1. npm install
 2. npm run dev
 
-That's about it and the project is ready in port 3000
+That's about it and the project is ready on port 5173!
