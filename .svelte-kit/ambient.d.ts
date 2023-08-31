@@ -29,6 +29,8 @@ declare module '$env/static/private' {
 	export const ZITADEL_ISSUER: string;
 	export const ZITADEL_CLIENT_ID: string;
 	export const ZITADEL_CLIENT_SECRET: string;
+	export const AUTH_URL: string;
+	export const AUTH_SECRET: string;
 	export const NVM_INC: string;
 	export const npm_package_devDependencies__fontsource_fira_mono: string;
 	export const MANPATH: string;
@@ -80,6 +82,7 @@ declare module '$env/static/private' {
 	export const PATH: string;
 	export const npm_config_argv: string;
 	export const TERMINAL_EMULATOR: string;
+	export const LaunchInstanceID: string;
 	export const _: string;
 	export const npm_package_devDependencies__neoconfetti_svelte: string;
 	export const __CFBundleIdentifier: string;
@@ -122,6 +125,7 @@ declare module '$env/static/private' {
 	export const INFOPATH: string;
 	export const npm_config_init_version: string;
 	export const npm_config_ignore_optional: string;
+	export const SECURITYSESSIONID: string;
 	export const npm_package_scripts_check: string;
 	export const npm_node_execpath: string;
 	export const npm_config_version_tag_prefix: string;
@@ -158,6 +162,8 @@ declare module '$env/dynamic/private' {
 		ZITADEL_ISSUER: string;
 		ZITADEL_CLIENT_ID: string;
 		ZITADEL_CLIENT_SECRET: string;
+		AUTH_URL: string;
+		AUTH_SECRET: string;
 		NVM_INC: string;
 		npm_package_devDependencies__fontsource_fira_mono: string;
 		MANPATH: string;
@@ -209,6 +215,7 @@ declare module '$env/dynamic/private' {
 		PATH: string;
 		npm_config_argv: string;
 		TERMINAL_EMULATOR: string;
+		LaunchInstanceID: string;
 		_: string;
 		npm_package_devDependencies__neoconfetti_svelte: string;
 		__CFBundleIdentifier: string;
@@ -251,6 +258,7 @@ declare module '$env/dynamic/private' {
 		INFOPATH: string;
 		npm_config_init_version: string;
 		npm_config_ignore_optional: string;
+		SECURITYSESSIONID: string;
 		npm_package_scripts_check: string;
 		npm_node_execpath: string;
 		npm_config_version_tag_prefix: string;
