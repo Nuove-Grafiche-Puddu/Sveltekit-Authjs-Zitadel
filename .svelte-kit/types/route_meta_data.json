@@ -1,9 +1,11 @@
 {
-	"/": [
-		"src/routes/+layout.server.ts",
-		"src/routes/+layout.server.ts"
+	"/(auth)": [
+		"src/routes/(auth)/+layout.server.ts"
 	],
-	"/protected": [
-		"src/routes/+layout.server.ts"
+	"/": [],
+	"/auth": [],
+	"/(auth)/protected": [
+		"src/routes/(auth)/protected/+page.server.ts",
+		"src/routes/(auth)/+layout.server.ts"
 	]
 }

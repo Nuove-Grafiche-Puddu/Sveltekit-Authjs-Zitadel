@@ -14,10 +14,11 @@
                 />
             {/if}
             <span class="signedInText">
-                <small>Signed in as</small><br/>
+                <small>Protected</small><br/>
                 <strong class="">{$page.data.session.user?.name ?? "User"}</strong>
             </span>
-            <button on:click={() => signOut('zitadel')} class="button">Sign out</button>
+            <button on:click={() => signOut({callbackUrl: "/", }
+            )} class="button">Sign out</button>
         {:else}
             <span class="notSignedInText">You are not signed in</span><br/>
             <button on:click={() => signIn('zitadel')}>Sign In with Zitadel</button>
@@ -38,7 +39,7 @@
         width: 100%;
     }
     button {
-        background-color: deepskyblue;
+        background-color: #04AA6D;
         border: none;
         color: white;
         padding: 15px;
