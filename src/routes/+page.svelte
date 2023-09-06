@@ -4,23 +4,20 @@
 </script>
 
 <section>
-    <h1>SvelteKit Auth Example</h1>
+    <h1>SvelteKit AuthJS and Zitadel Example</h1>
     <p>
         {#if $page.data.session}
             {#if $page.data.session.user?.image}
-                <span
-                    style="background-image: url('{$page.data.session.user.image}')"
-                    class="avatar"
-                />
+                <img src="{$page.data.session.user.image}" alt="avatar" class="avatar"/>
             {/if}
             <span class="signedInText">
-                <small>Signed in as</small><br/>
+                <small>Home</small><br/>
                 <strong class="">{$page.data.session.user?.name ?? "User"}</strong>
             </span>
-            <button on:click={() => signOut('zitadel')} class="button">Sign out</button>
+            <button on:click={() => signOut({callbackUrl: "/", })} class="buttonSignOut">Sign out</button>
         {:else}
             <span class="notSignedInText">You are not signed in</span><br/>
-            <button on:click={() => signIn('zitadel')}>Sign In with Zitadel</button>
+            <button on:click={() => signIn('zitadel')} class="buttonSignIn">Sign In with Zitadel</button>
         {/if}
     </p>
 </section>
@@ -37,7 +34,18 @@
     h1 {
         width: 100%;
     }
-    button {
+    .buttonSignOut {
+        background-color: #04AA6D;
+        border: none;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 24px;
+    }
+    .buttonSignIn {
         background-color: deepskyblue;
         border: none;
         color: white;

@@ -65,3 +65,21 @@ To streamline this process and allow users to return to their previous page afte
 
 By implementing this approach, we aim to provide a smoother user experience for your authentication flow.
 
+# Authorization
+
+## Setting User Roles
+1. In Zitadel, create the role "Admin."
+2. Assign the "Admin" role to a user within your project.
+3. To enable authorization in the project, ensure that you fill in the variable `ZITADEL_RESOURCE_ID` in the environment file.
+4. Logout from the user if you were connected before editing the authorizations.
+
+## Testing Authorization
+To test Authorization I made the page Admin. If everything is correct you should see that the user has the "Admin" authorization.
+
+## Customizing Session Data
+1. To access additional data from the user's profile, set the callback `jwt` and `signin` in the file `/src/hooks.server.ts`.
+2. If you need to add custom data to the session and keep intellisense, modify the file `/src/types/auth.d.ts`.
+
+To get more information about this visit the page [Authorization](https://github.com/nextauthjs/next-auth/discussions/6914).
+
+I hope this project helps people integrate their SvelteKit projects with Zitadel!

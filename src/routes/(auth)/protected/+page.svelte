@@ -4,14 +4,11 @@
 </script>
 
 <section>
-    <h1>SvelteKit Auth Example</h1>
+    <h1>SvelteKit AuthJS and Zitadel Example</h1>
     <p>
         {#if $page.data.session}
             {#if $page.data.session.user?.image}
-                <span
-                    style="background-image: url('{$page.data.session.user.image}')"
-                    class="avatar"
-                />
+                <img src="{$page.data.session.user.image}" alt="avatar" class="avatar"/>
             {/if}
             <span class="signedInText">
                 <small>Protected</small><br/>
