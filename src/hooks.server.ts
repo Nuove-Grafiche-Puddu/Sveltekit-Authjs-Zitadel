@@ -34,14 +34,12 @@ export const handle = SvelteKitAuth( {
     trustHost: true,
     callbacks: {
         async jwt({ token, user, account, profile }) {
-            console.log(token, profile)
             if (account) {
                 token.id = account.providerAccountId;
                 token.accessToken = account.access_token
             }
             if (profile) {
                 token.roles = Object.keys(profile[`urn:zitadel:iam:org:project:${ZITADEL_RESOURCE_ID}:roles`] as Object ?? [])
-                console.log(token.roles)
             }
             return token;
         },
