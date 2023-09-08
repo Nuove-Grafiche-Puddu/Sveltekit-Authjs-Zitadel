@@ -1,9 +1,8 @@
 import ZitadelProvider from "@auth/core/providers/zitadel";
 import {SvelteKitAuth} from "@auth/sveltekit";
-import { ZITADEL_ISSUER, ZITADEL_CLIENT_ID, ZITADEL_CLIENT_SECRET, ZITADEL_RESOURCE_ID, AUTH_SECRET } from "$env/static/private"
-import type {JWT} from "@auth/core/jwt";
-import type {Session} from "@auth/core/types";
-import type {AdapterUser} from "@auth/core/adapters";
+import { ZITADEL_ISSUER, ZITADEL_CLIENT_ID, ZITADEL_CLIENT_SECRET, AUTH_SECRET } from "$env/static/private"
+import type {JwtCallbackParams, Metadata, SessionParams} from "./types/auth";
+import {decodeMetadatas, getRoles, metadataScope, rolesScope} from "$lib/ProfileUtility";
 
 export const handle = SvelteKitAuth( {
     providers: [
@@ -13,7 +12,7 @@ export const handle = SvelteKitAuth( {
                 clientSecret: ZITADEL_CLIENT_SECRET,
                 authorization: {
                     params: {
-                        scope: `openid email profile offline_access`,
+                        scope: `openid email profile offline_access urn:zitadel:iam:user:metadata`,
                     },
                 },
                 async profile(profile) {
@@ -26,6 +25,8 @@ export const handle = SvelteKitAuth( {
                         loginName: profile.preferred_username,
                         image: profile.picture,
                         accessToken: profile.access_token,
+                        roles: getRoles(profile[rolesScope]),
+                        metadata: decodeMetadatas(profile[metadataScope])
                     };
                 },
             },
@@ -33,20 +34,23 @@ export const handle = SvelteKitAuth( {
     secret: AUTH_SECRET,
     trustHost: true,
     callbacks: {
-        async jwt({ token, user, account, profile }) {
+        async jwt({ token, user, account, profile }: JwtCallbackParams) {
+            // Your JWT callback logic here
             if (account) {
                 token.id = account.providerAccountId;
-                token.accessToken = account.access_token
+                token.accessToken = account.access_token;
             }
-            if (profile) {
-                token.roles = Object.keys(profile[`urn:zitadel:iam:org:project:${ZITADEL_RESOURCE_ID}:roles`] as Object ?? [])
+            if (user) {
+                token.roles = user.roles;
+                token.metadata = user.metadata;
             }
             return token;
         },
-        async session({ session, token, user }: { session: Session, token: JWT, user: AdapterUser}) {
+        async session({ session, token, user }: SessionParams) {
             session.accessToken = token.accessToken as string;
             if (session.user) {
                 session.user.roles = token.roles as string[]
+                session.user.metadata = token.metadata as Metadata
             }
             return session;
         }

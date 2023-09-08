@@ -82,4 +82,25 @@ To test Authorization I made the page Admin. If everything is correct you should
 
 To get more information about this visit the page [Authorization](https://github.com/nextauthjs/next-auth/discussions/6914).
 
+# Metadata/Claims
+
+Before you proceed with the instructions, ensure that you have set up the required metadata in Zitadel. For detailed information on setting up metadata in Zitadel, please refer to the [Zitadel claims documentation](https://zitadel.com/docs/guides/manage/customize/user-metadata).<br>
+
+## Get the metadata
+Before you can request user information, make sure you have completed the following steps:
+1. As for the roles you have to set the `ZITADEL_RESOURCE_ID` in .env file
+2. In this project it is already set but remember to add  `urn:zitadel:iam:user:metadata` as a param scope. This scope is required to access user metadata.
+3. In your profile callback function, you will receive user metadata as an object with key-value pairs. It's important to note that the values are encoded in base64, so you must decode them before reading their contents.
+
+# Request the user information by calling the userinfo endpoint
+
+While the previous methods demonstrate how to obtain user information from a token, you can also use an alternative approach requesting the `userinfo` from the Zitadel endpoint. Details on how I implemented it can be found in the `+page.server.ts` file.
+
+# Use an adaptor
+Still in development. I will post it in a different branch.
+
+# Conclusion
+
 I hope this project helps people integrate their SvelteKit projects with Zitadel!
+
+

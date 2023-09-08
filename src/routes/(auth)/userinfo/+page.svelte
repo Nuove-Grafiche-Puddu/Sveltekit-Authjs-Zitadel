@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { signOut } from "@auth/sveltekit/client"
+    import { signIn, signOut } from "@auth/sveltekit/client"
     import { page } from "$app/stores"
 </script>
 
@@ -24,7 +24,7 @@
                 </div>
             </div>
         {:else}
-        <span><strong>You are not logged in as Admin</strong></span>
+            <span><strong>You are not logged in as Admin</strong></span>
         {/if}
     </p>
 </section>

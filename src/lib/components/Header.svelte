@@ -22,6 +22,9 @@
             <li aria-current={$page.url.pathname === '/protected' ? 'page' : undefined}>
                 <a href="/protected" class="btn">Protected</a>
             </li>
+            <li aria-current={$page.url.pathname === '/userinfo' ? 'page' : undefined}>
+                <a href="/userinfo" class="btn">USER INFO</a>
+            </li>
             <li aria-current={$page.url.pathname === '/admin' ? 'page' : undefined}>
                 <a href="/admin" class="btn">Admin</a>
             </li>
