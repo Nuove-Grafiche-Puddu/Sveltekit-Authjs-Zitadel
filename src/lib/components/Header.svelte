@@ -25,9 +25,6 @@
             <li aria-current={$page.url.pathname === '/userinfo' ? 'page' : undefined}>
                 <a href="/userinfo" class="btn">USER INFO</a>
             </li>
-            <li aria-current={$page.url.pathname === '/admin' ? 'page' : undefined}>
-                <a href="/admin" class="btn">Admin</a>
-            </li>
         </ul>
         <svg viewBox="0 0 2 3" aria-hidden="true">
             <path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />

@@ -94,10 +94,18 @@ Before you can request user information, make sure you have completed the follow
 
 # Request the user information by calling the userinfo endpoint
 
-While the previous methods demonstrate how to obtain user information from a token, you can also use an alternative approach requesting the `userinfo` from the Zitadel endpoint. Details on how I implemented it can be found in the `+page.server.ts` file.
+While the previous methods demonstrate how to obtain user information from a token, you can also use an alternative approach requesting the `userinfo` from the Zitadel endpoint. Details on how I implemented it can be found in the `+layout.server.ts` file.
 
 # Use an adaptor
-Still in development. I will post it in a different branch.
+To see the adapter implementation you must switch to the adapter branch.
+## Why use it?
+If you want to automatically save and register user this is the easiest thing you can do.
+## Strategy
+In the `hooks.server.ts` you can set the session strategy. You have two main option:
+1. database: You don't use a jwt token and so all the data for a user are in the profile callback. You lose the ability to request user info with a access_token, but you can access them in the db. You have to modify the models if you wish to store permission and metadata.
+2. jwt: The workflow is the same as before.
+In this project I cover the jwt strategy since it is also a Zitadel tutorial.
+
 
 # Conclusion
 

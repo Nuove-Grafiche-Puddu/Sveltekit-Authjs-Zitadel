@@ -1,10 +1,15 @@
 import ZitadelProvider from "@auth/core/providers/zitadel";
 import {SvelteKitAuth} from "@auth/sveltekit";
 import { ZITADEL_ISSUER, ZITADEL_CLIENT_ID, ZITADEL_CLIENT_SECRET, AUTH_SECRET } from "$env/static/private"
-import type {JwtCallbackParams, Metadata, SessionParams} from "./types/auth";
-import {decodeMetadatas, getRoles, metadataScope, rolesScope} from "$lib/ProfileUtility";
+import type {JwtCallbackParams, SessionParams} from "./types/auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export const handle = SvelteKitAuth( {
+    adapter: PrismaAdapter(prisma),
+    session: { strategy: "jwt" },
     providers: [
         ZitadelProvider({
                 issuer: ZITADEL_ISSUER,
@@ -25,8 +30,6 @@ export const handle = SvelteKitAuth( {
                         loginName: profile.preferred_username,
                         image: profile.picture,
                         accessToken: profile.access_token,
-                        roles: getRoles(profile[rolesScope]),
-                        metadata: decodeMetadatas(profile[metadataScope])
                     };
                 },
             },
@@ -35,23 +38,14 @@ export const handle = SvelteKitAuth( {
     trustHost: true,
     callbacks: {
         async jwt({ token, user, account, profile }: JwtCallbackParams) {
-            // Your JWT callback logic here
             if (account) {
                 token.id = account.providerAccountId;
                 token.accessToken = account.access_token;
-            }
-            if (user) {
-                token.roles = user.roles;
-                token.metadata = user.metadata;
             }
             return token;
         },
         async session({ session, token, user }: SessionParams) {
             session.accessToken = token.accessToken as string;
-            if (session.user) {
-                session.user.roles = token.roles as string[]
-                session.user.metadata = token.metadata as Metadata
-            }
             return session;
         }
     }

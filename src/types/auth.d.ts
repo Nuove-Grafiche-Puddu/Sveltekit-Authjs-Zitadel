@@ -34,6 +34,8 @@ export declare module "@auth/core/types" {  // I'm using PNPM but this seems to 
 
     interface Session {
         accessToken?: string
+        roles?: string[]
+        metadata?: Metadata
         user?: AdapterUser & DefaultSession['user'];
     }
 }

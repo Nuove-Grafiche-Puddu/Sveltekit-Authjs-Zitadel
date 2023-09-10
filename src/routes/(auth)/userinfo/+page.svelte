@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { signIn, signOut } from "@auth/sveltekit/client"
+    import { signOut } from "@auth/sveltekit/client"
     import { page } from "$app/stores"
 </script>
 
 <section>
     <h1>SvelteKit AuthJS and Zitadel Example</h1>
     <p>
-        {#if $page.data.session && $page.data.session.user?.roles?.includes('Admin')}
+        {#if $page.data.session && $page.data.session.roles?.includes('Admin')}
             <div class="">
                 {#if $page.data.session.user?.image}
                     <img src="{$page.data.session.user.image}" alt="avatar" class="avatar"/>
@@ -16,7 +16,7 @@
                 </span>
                 <div class="centered-content height-container"><strong>You are connected as admin</strong></div>
                 <div class="centered-content height-container"><strong>Your claims are:</strong></div>
-                {#each Object.entries($page.data.session.user.metadata) as [key, value]}
+                {#each Object.entries($page.data.session.metadata) as [key, value]}
                     <div class="centered-content height-container"><strong>{key}: {value}</strong></div>
                 {/each}
                 <div class="centered-content height-container">
