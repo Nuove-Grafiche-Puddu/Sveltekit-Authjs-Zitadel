@@ -60,7 +60,7 @@ This method is described [here](https://authjs.dev/reference/sveltekit#per-path)
 In the project, there's a route called `auth` that plays a crucial role. This route is necessary because SvelteKit's server cannot directly redirect the user to Zitadel's login page; instead, it must route them through `/auth/signin`.<br>
 However, to avoid this behavior, the SvelteKit server will redirect the user to the `/auth` page, which will trigger AuthJS's authentication function for signing in through Zitadel.<br>
 To streamline this process and allow users to return to their previous page after login, we've added a redirect search parameter to these requests. You can see this behavior in the following files:
-1. `/src/routes/(auth)/protected/+page.server.ts`  
+1. `/src/routes/(auth)/protected/+page.server.ts`
 2. `/src/routes/auth/+page.svelte`
 
 By implementing this approach, we aim to provide a smoother user experience for your authentication flow.
@@ -94,13 +94,20 @@ Before you can request user information, make sure you have completed the follow
 
 # Request the user information by calling the userinfo endpoint
 
-While the previous methods demonstrate how to obtain user information from a token, you can also use an alternative approach requesting the `userinfo` from the Zitadel endpoint. Details on how I implemented it can be found in the `+page.server.ts` file.
+While the previous methods demonstrate how to obtain user information from a token, you can also use an alternative approach requesting the `userinfo` from the Zitadel endpoint. Details on how I implemented it can be found in the `+layout.server.ts` file.
 
 # Use an adaptor
-Still in development. I will post it in a different branch.
+To view the adapter implementation, switch to the 'adapter' branch.## Why use it?
+## Why use the Adapter?
+The adapter is a powerful tool that simplifies user registration and management. If you want to automate the process of saving and registering users, the adapter is the easiest way to achieve this.
+
+## Strategy options
+In the `hooks.server.ts` file, you can set the session strategy. There are two main options available:
+1. **Database Strategy**: This strategy does not use a JWT token. Instead, all user data is stored in the profile callback. While this approach means you lose the ability to request user information using an access token, you can access user data in the database. If you wish to store permissions and metadata, you will need to modify the models accordingly.
+2. **JWT Strategy**: This strategy follows a workflow similar to the one used previously.
+   In this project, we focus on the JWT strategy as it aligns with the Zitadel tutorial.
+
 
 # Conclusion
 
 I hope this project helps people integrate their SvelteKit projects with Zitadel!
-
-
